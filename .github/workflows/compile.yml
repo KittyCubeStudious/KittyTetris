@@ -27,6 +27,8 @@ jobs:
           export PS3DEV=/usr/local/ps3dev
           export PSL1GHT=/usr/local/ps3dev
           export PATH="/usr/local/ps3dev/bin:/usr/local/ps3dev/ppu/bin:/usr/local/ps3dev/spu/bin:$PATH"
+          echo "PS3DEV=/usr/local/ps3dev" >> $GITHUB_ENV
+          echo "PSL1GHT=/usr/local/ps3dev" >> $GITHUB_ENV
           echo "/usr/local/ps3dev/bin" >> $GITHUB_PATH
           echo "/usr/local/ps3dev/ppu/bin" >> $GITHUB_PATH
           echo "/usr/local/ps3dev/spu/bin" >> $GITHUB_PATH
@@ -39,6 +41,9 @@ jobs:
 
       - name: Compile Game
         run: make
+        env:
+          PS3DEV: /usr/local/ps3dev
+          PSL1GHT: /usr/local/ps3dev
 
       - name: Commit and Push Files
         run: |
@@ -47,4 +52,4 @@ jobs:
           git add EBOOT.BIN PARAM.SFO
           git commit -m "Auto-update compiled EBOOT.BIN and PARAM.SFO" || echo "No changes to commit"
           git push
-           
+          
