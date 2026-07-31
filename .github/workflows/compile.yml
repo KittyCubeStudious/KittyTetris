@@ -20,12 +20,16 @@ jobs:
 
       - name: Setup PS3DEV Environment
         run: |
-          sudo mkdir -p /usr/local/ps3dev
+          sudo mkdir -p /usr/local/ps3dev/bin
+          sudo mkdir -p /usr/local/ps3dev/ppu/bin
+          sudo mkdir -p /usr/local/ps3dev/spu/bin
           sudo chown -R $USER:$USER /usr/local/ps3dev
           export PS3DEV=/usr/local/ps3dev
           export PSL1GHT=/usr/local/ps3dev
-          export PATH="/usr/local/ps3dev/bin:$PATH"
+          export PATH="/usr/local/ps3dev/bin:/usr/local/ps3dev/ppu/bin:/usr/local/ps3dev/spu/bin:$PATH"
           echo "/usr/local/ps3dev/bin" >> $GITHUB_PATH
+          echo "/usr/local/ps3dev/ppu/bin" >> $GITHUB_PATH
+          echo "/usr/local/ps3dev/spu/bin" >> $GITHUB_PATH
           git clone https://github.com/ps3dev/ps3toolchain.git
           cd ps3toolchain
           ./toolchain.sh
@@ -43,4 +47,4 @@ jobs:
           git add EBOOT.BIN PARAM.SFO
           git commit -m "Auto-update compiled EBOOT.BIN and PARAM.SFO" || echo "No changes to commit"
           git push
-          
+           
