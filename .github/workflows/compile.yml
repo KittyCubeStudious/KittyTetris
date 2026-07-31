@@ -1,0 +1,18 @@
+name: PS3 Build
+on: [push, workflow_dispatch]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: ps3dev/ps3dev:latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compile Game
+        run: make
+      - name: Upload Files
+        uses: actions/upload-artifact@v4
+        with:
+          name: KittyTetris_Files
+          path: |
+            EBOOT.BIN
+            PARAM.SFO
+            
